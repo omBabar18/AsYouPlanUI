@@ -267,36 +267,45 @@ function SignInSignUp() {
 
   // Confetti animation function
   const triggerConfetti = () => {
-    const duration = 8000
-    const animationEnd = Date.now() + duration
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 }
+    // Create a temporary canvas with high z-index
+    const confettiCanvas = document.createElement('canvas');
+    confettiCanvas.style.position = 'fixed';
+    confettiCanvas.style.top = '0';
+    confettiCanvas.style.left = '0';
+    confettiCanvas.style.width = '100vw';
+    confettiCanvas.style.height = '100vh';
+    confettiCanvas.style.pointerEvents = 'none';
+    confettiCanvas.style.zIndex = '20000'; // Higher than modal/dialog
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+    document.body.appendChild(confettiCanvas);
+
+    const myConfetti = confetti.create(confettiCanvas, { resize: true, useWorker: true });
+    const duration = 5000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 20000 };
 
     function randomInRange(min, max) {
-      return Math.random() * (max - min) + min
+      return Math.random() * (max - min) + min;
     }
 
     const interval = setInterval(() => {
-      const timeLeft = animationEnd - Date.now()
-
+      const timeLeft = animationEnd - Date.now();
       if (timeLeft <= 0) {
-        return clearInterval(interval)
+        clearInterval(interval);
+        confettiCanvas.remove();
+        return;
       }
-
-      const particleCount = 50 * (timeLeft / duration)
-
-      confetti(
-        Object.assign({}, defaults, {
-          particleCount,
-          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-        }),
-      )
-      confetti(
-        Object.assign({}, defaults, {
-          particleCount,
-          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-        }),
-      )
-    }, 250)
+      const particleCount = 50 * (timeLeft / duration);
+      myConfetti(Object.assign({}, defaults, {
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+      }));
+      myConfetti(Object.assign({}, defaults, {
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+      }));
+    }, 250);
   }
 
   const handleToggleForm = () => {
