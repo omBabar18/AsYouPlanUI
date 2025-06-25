@@ -43,14 +43,14 @@ export  const NavBarComponent = () => {
                                     className="flex items-center space-x-2 px-4 py-2 hover:bg-blue-50 transition-colors duration-200"
                                 >
                                     <span className="material-symbols-outlined text-sm">hotel</span>
-                                    <span>Hotel</span>
+                                    <span>Hotels</span>
                                 </a>
                                 <a
                                     href="#"
                                     className="flex items-center space-x-2 px-4 py-2 hover:bg-blue-50 transition-colors duration-200"
                                 >
                                     <span className="material-symbols-outlined text-sm">tour</span>
-                                    <span>Tour</span>
+                                    <span>Tours</span>
                                 </a>
                             </div>
                         </details>
