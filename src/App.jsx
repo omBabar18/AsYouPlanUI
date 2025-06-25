@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import Auth from './components/auth.jsx';
+// import Auth from './components/auth.jsx';
+import { NavBarComponent } from './components/navbarBeforeSignup.jsx';
 
 function App() {
   return (
     <div>
-      <Auth />
+      {/* <Auth /> */}
+      <NavBarComponent />
     </div>
   );
 }
