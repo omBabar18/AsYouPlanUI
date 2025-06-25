@@ -221,7 +221,7 @@ export  const NavBarComponent = () => {
                                         <details>
                                             <summary className="flex items-center space-x-2 py-2 hover:text-blue-600 transition-colors duration-200 cursor-pointer list-none">
                                                 <span className="material-symbols-outlined text-sm">
-                                                    currency_rupee
+                                                    currencyrupee
                                                 </span>
                                                 <span>INR</span>
                                                 <span className="material-symbols-outlined text-xs">expand_more</span>
