@@ -1,0 +1,9 @@
+.header {
+  background-color: transparent !important;
+  padding: 15px 0;
+  position: absolute; /* Add this */
+  width: 100%; /* Add this */
+  z-index: 2; /* Add this to ensure header stays above hero */
+}
+
+/* Rest of your existing CSS remains the same */

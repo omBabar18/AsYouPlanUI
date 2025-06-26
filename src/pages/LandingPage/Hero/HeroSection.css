@@ -1,0 +1,187 @@
+/* HeroSection.css */
+.hero-section {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 0 20px;
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  transition: background-image 1s ease-in-out;
+}
+
+/* Background overlay */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+  z-index: 0;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-weight: bold !important;
+  margin-bottom: 20px !important;
+  font-size: 3rem !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-subtitle {
+  margin-bottom: 40px !important;
+  font-weight: 300 !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.active-tab {
+  background-color: #ff5a5f !important;
+  color: white !important;
+  padding: 10px 30px !important;
+  border-radius: 30px !important;
+  text-transform: capitalize !important;
+  font-weight: bold !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.inactive-tab {
+  color: white !important;
+  padding: 10px 30px !important;
+  border-radius: 30px !important;
+  text-transform: capitalize !important;
+  font-weight: bold !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease;
+}
+
+.inactive-tab:hover {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Search Box Styles */
+.search-box {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 30px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.search-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-fields {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.search-field {
+  flex: 1;
+  min-width: 180px;
+}
+
+.search-field label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.search-field input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.search-button {
+  background-color: #ff5a5f !important;
+  color: white !important;
+  border: none;
+  padding: 12px 30px !important;
+  border-radius: 5px !important;
+  font-weight: bold !important;
+  cursor: pointer;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(255, 90, 95, 0.3) !important;
+}
+
+.search-button:hover {
+  background-color: #e04a50 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 90, 95, 0.4) !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    padding: 80px 20px;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem !important;
+    margin-bottom: 30px !important;
+  }
+  
+  .search-fields {
+    flex-direction: column;
+  }
+  
+  .search-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.8rem !important;
+  }
+  
+  .hero-tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .active-tab,
+  .inactive-tab {
+    width: 100%;
+    text-align: center;
+  }
+}
