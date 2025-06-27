@@ -6,6 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { styled, keyframes } from "@mui/system"
 import confetti from "canvas-confetti"
 import CloseIcon from "@mui/icons-material/Close"
+import { apiPost } from "../utils/api"
 
 // Custom theme for Material UI
 const theme = createTheme({
@@ -224,13 +225,17 @@ const AnimatedFormContainer = styled(Box)(({ isVisible, hasError }) => ({
   "& > *": {
     animation: isVisible ? `${slideIn} 0.6s ease-out` : "none",
   },
+  // Ensure content can scroll if it overflows this container
+  overflowY: 'auto', 
+  maxHeight: '100%', // Allow vertical scrolling if content exceeds height
 }))
 
 function SignInSignUp() {
   const [isSignIn, setIsSignIn] = useState(true)
   const [signInEmail, setSignInEmail] = useState("")
   const [signInPassword, setSignInPassword] = useState("")
-  const [signUpName, setSignUpName] = useState("")
+  const [signUpFirstName, setSignUpFirstName] = useState("")
+  const [signUpLastName, setSignUpLastName] = useState("")
   const [signUpEmail, setSignUpEmail] = useState("")
   const [signUpPhoneNumber, setSignUpPhoneNumber] = useState("")
   const [signUpPassword, setSignUpPassword] = useState("")
@@ -239,12 +244,6 @@ function SignInSignUp() {
   const [error, setError] = useState("")
   const [successMessage, setSuccessMessage] = useState("")
   const [open, setOpen] = useState(false) // Modal state
-
-  // Mock user data for demonstration
-  const mockUserData = {
-    email: "ombabar04@gmail.com",
-    password: "Omkar",
-  }
 
   // Confetti animation function
   const triggerConfetti = () => {
@@ -293,7 +292,8 @@ function SignInSignUp() {
     setIsSignIn(!isSignIn)
     setSignInEmail("")
     setSignInPassword("")
-    setSignUpName("")
+    setSignUpFirstName("")
+    setSignUpLastName("")
     setSignUpEmail("")
     setSignUpPhoneNumber("")
     setSignUpPassword("")
@@ -302,61 +302,146 @@ function SignInSignUp() {
     setButtonClicked(null)
   }
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     setButtonClicked("signIn")
     setError("")
     setSuccessMessage("")
-
-    setTimeout(() => {
-      if (!signInEmail || !signInPassword) {
-        setError("All fields are required")
-        setButtonClicked(null)
-        return
-      }
-      if (signInEmail !== mockUserData.email) {
-        setError("Invalid email address")
-        setButtonClicked(null)
-        return
-      }
-      if (signInPassword !== mockUserData.password) {
-        setError("Invalid password")
-        setButtonClicked(null)
-        return
-      }
-      // Success
+    // Field-specific validation
+    if (!signInEmail) {
+      setError("Email is required")
+      setButtonClicked(null)
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(signInEmail)) {
+      setError("Please enter a valid email address")
+      setButtonClicked(null)
+      return
+    }
+    if (!signInPassword) {
+      setError("Password is required")
+      setButtonClicked(null)
+      return
+    }
+    try {
+      // Call backend API for sign in
+      const res = await apiPost("/login", { email: signInEmail, password: signInPassword })
       setIsSignedIn(true)
       triggerConfetti()
-      setSuccessMessage("Sign in successful!")
+      const userName = res.firstName || res.name || signInEmail.split('@')[0]
+      setSuccessMessage(res.message || `Welcome back, ${userName}!`)
       setButtonClicked(null)
-    }, 1000)
+    } catch (err) {
+      let msg = err.message || "Sign in failed"
+      if (
+        msg.toLowerCase().includes("not found") ||
+        msg.toLowerCase().includes("no user")
+      ) {
+        msg = "No account found with this email. Please sign up first."
+      } else if (
+        msg.toLowerCase().includes("incorrect") ||
+        msg.toLowerCase().includes("invalid password") ||
+        msg.toLowerCase().includes("wrong password")
+      ) {
+        msg = "Incorrect password. Please try again."
+      } else if (
+        msg.toLowerCase().includes("invalid credentials")
+      ) {
+        msg = "Invalid email or password. Please try again."
+      } else if (
+        msg.toLowerCase().includes("failed")
+      ) {
+        msg = "Sign in failed. Please check your credentials and try again."
+      }
+      setError(msg)
+      setButtonClicked(null)
+    }
   }
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     setButtonClicked("signUp")
     setError("")
     setSuccessMessage("")
-
-    setTimeout(() => {
-      if (!signUpName || !signUpEmail || !signUpPhoneNumber || !signUpPassword) {
-        setError("All fields are required")
-        setButtonClicked(null)
-        return
-      }
-      // Success
+    // Field-specific validation
+    if (!signUpFirstName) {
+      setError("First name is required")
+      setButtonClicked(null)
+      return
+    }
+    if (!signUpLastName) {
+      setError("Last name is required")
+      setButtonClicked(null)
+      return
+    }
+    if (!signUpEmail) {
+      setError("Email is required")
+      setButtonClicked(null)
+      return
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(signUpEmail)) {
+      setError("Please enter a valid email address")
+      setButtonClicked(null)
+      return
+    }
+    if (!signUpPhoneNumber) {
+      setError("Phone number is required")
+      setButtonClicked(null)
+      return
+    }
+    if (!/^\d{10}$/.test(signUpPhoneNumber)) {
+      setError("Phone number must be 10 digits")
+      setButtonClicked(null)
+      return
+    }
+    if (!signUpPassword) {
+      setError("Password is required")
+      setButtonClicked(null)
+      return
+    }
+    if (signUpPassword.length < 6) {
+      setError("Password must be at least 6 characters")
+      setButtonClicked(null)
+      return
+    }
+    try {
+      // Call backend API for sign up
+      const res = await apiPost("/register", {
+        firstName: signUpFirstName,
+        lastName: signUpLastName,
+        email: signUpEmail,
+        phone: signUpPhoneNumber,
+        password: signUpPassword,
+      })
       setIsSignedIn(true)
       triggerConfetti()
-      setSuccessMessage("Sign up successful!")
+      setSuccessMessage(res.message || `Welcome, ${signUpFirstName}! Your account was created successfully.`)
       setButtonClicked(null)
-    }, 1000)
+    } catch (err) {
+      let msg = err.message || "Sign up failed"
+      if (
+        msg.toLowerCase().includes("already exists") ||
+        msg.toLowerCase().includes("duplicate")
+      ) {
+        msg = "An account with this email or phone already exists. Please sign in or use a different email."
+      } else if (
+        msg.toLowerCase().includes("password") ||
+        msg.toLowerCase().includes("weak")
+      ) {
+        msg = "Password must be at least 6 characters and contain letters or numbers."
+      } else if (
+        msg.toLowerCase().includes("not signed up") ||
+        msg.toLowerCase().includes("failed")
+      ) {
+        msg = "Sign up failed. Please check your details and try again."
+      }
+      setError(msg)
+      setButtonClicked(null)
+    }
   }
-
- 
 
   const handleForgotPassword = () => {
     alert("Forgot password functionality would be implemented here")
   }
 
-  // Replace the main return with a button and modal
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -399,20 +484,22 @@ function SignInSignUp() {
               </IconButton>
             </Box>
             {/* Place the entire Paper (auth UI) here */}
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "650px" }}>
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "fit-content" }}> {/* Changed minHeight */}
               <Paper
                 elevation={0}
                 sx={{
                   width: { xs: "100%", sm: "900px" },
-                  height: "650px",
-                  maxWidth: "900px",
+                  // Removed fixed height here
+                  maxWidth: "950px",
                   borderRadius: "24px",
-                  overflow: "hidden",
+                  overflow: "hidden", // Changed from "hidden" to ensure no scrollbar for the paper itself
                   display: "flex",
                   boxShadow: "0 20px 60px rgba(102,126,234,0.15)",
                   position: "relative",
                   background: "rgba(255,255,255,0.95)",
                   backdropFilter: "blur(2px)",
+                  // Added maxHeight for the paper to allow it to shrink
+                  maxHeight: '90vh', // Adjust as needed, e.g., 90% of viewport height
                 }}
               >
                 {/* Sign In Form */}
@@ -431,7 +518,6 @@ function SignInSignUp() {
                   >
                     Welcome Back
                   </Typography>
-                 
 
                   {error && isSignIn && (
                     <Typography
@@ -443,9 +529,26 @@ function SignInSignUp() {
                         backgroundColor: "rgba(220, 53, 69, 0.1)",
                         borderRadius: "8px",
                         border: "1px solid rgba(220, 53, 69, 0.2)",
+                        fontWeight: 600
                       }}
                     >
                       {error}
+                    </Typography>
+                  )}
+                  {successMessage && isSignIn && (
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "success.main",
+                        marginBottom: "1rem",
+                        padding: "8px 16px",
+                        backgroundColor: "rgba(40, 167, 69, 0.08)",
+                        borderRadius: "8px",
+                        border: "1px solid rgba(40, 167, 69, 0.18)",
+                        fontWeight: 600
+                      }}
+                    >
+                      {successMessage}
                     </Typography>
                   )}
 
@@ -523,6 +626,7 @@ function SignInSignUp() {
                     {buttonClicked === "signIn" ? "Signing In..." : "Sign In"}
                   </Button>
 
+
                   <Typography
                     variant="body2"
                     sx={{
@@ -577,20 +681,48 @@ function SignInSignUp() {
                         backgroundColor: "rgba(220, 53, 69, 0.1)",
                         borderRadius: "8px",
                         border: "1px solid rgba(220, 53, 69, 0.2)",
+                        fontWeight: 600
                       }}
                     >
                       {error}
                     </Typography>
                   )}
+                  {successMessage && !isSignIn && (
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "success.main",
+                        marginBottom: "1rem",
+                        padding: "8px 16px",
+                        backgroundColor: "rgba(40, 167, 69, 0.08)",
+                        borderRadius: "8px",
+                        border: "1px solid rgba(40, 167, 69, 0.18)",
+                        textAlign: 'center',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {successMessage}
+                    </Typography>
+                  )}
 
                   <TextField
-                    label="Full Name"
+                    label="First Name"
                     type="text"
                     variant="outlined"
                     fullWidth
                     margin="normal"
-                    value={signUpName}
-                    onChange={(e) => setSignUpName(e.target.value)}
+                    value={signUpFirstName}
+                    onChange={(e) => setSignUpFirstName(e.target.value)}
+                    sx={{ marginBottom: "0.5rem" }}
+                  />
+                  <TextField
+                    label="Last Name"
+                    type="text"
+                    variant="outlined"
+                    fullWidth
+                    margin="normal"
+                    value={signUpLastName}
+                    onChange={(e) => setSignUpLastName(e.target.value)}
                     sx={{ marginBottom: "0.5rem" }}
                   />
                   <TextField
@@ -604,7 +736,7 @@ function SignInSignUp() {
                     sx={{ marginBottom: "0.5rem" }}
                   />
                   <TextField
-                    label="Phone Number"
+                    label="WhatsApp Phone Number"
                     type="tel"
                     variant="outlined"
                     fullWidth
@@ -641,7 +773,7 @@ function SignInSignUp() {
                       animation: buttonClicked === "signUp" ? `${pulse} 0.6s ease` : "none",
                       boxShadow: "0 4px 16px rgba(102,126,234,0.10)",
                       borderRadius: 20,
-                      height: '50px', // Increased height for better appearance
+                      height: '50px',
                       minHeight: '50px',
                       '&:hover': {
                         background:
@@ -659,7 +791,7 @@ function SignInSignUp() {
                     {buttonClicked === "signUp" ? "Creating Account..." : "Create Account"}
                   </Button>
 
-                  
+
                   <Typography
                     variant="body2"
                     sx={{

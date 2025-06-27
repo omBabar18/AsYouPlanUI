@@ -26,8 +26,7 @@ export const WhyToChooseUsComponent = () => {
                                     Best Price Guarantee
                                 </h3>
                                 <p className="text-gray-600 leading-relaxed text-sm">
-                                    We guarantee the most competitive prices in the market. If you find a better deal
-                                    elsewhere, we'll match it and give you an additional discount.
+                                    We guarantee the most competitive prices in the market. 
                                 </p>
                             </div>
                             {/* Next: "Add price comparison feature or testimonials" */}
@@ -44,8 +43,7 @@ export const WhyToChooseUsComponent = () => {
                                     Easy & Quick Booking
                                 </h3>
                                 <p className="text-gray-600 leading-relaxed text-sm mb-4">
-                                    Book your service in just a few clicks with our streamlined process. No complicated
-                                    forms or lengthy procedures - just quick, efficient booking.
+                                    Book your service in just a few clicks with our streamlined process. 
                                 </p>
                             </div>
                             {/* Next: "Add booking progress indicator or booking form preview" */}
@@ -62,8 +60,7 @@ export const WhyToChooseUsComponent = () => {
                                     Customer Care 24/7
                                 </h3>
                                 <p className="text-gray-600 leading-relaxed text-sm">
-                                    Our dedicated support team is available round the clock to assist you. Get instant
-                                    help whenever you need it, any day of the year.
+                                    Our dedicated support team is available round the clock to assist you. 
                                 </p>
                             </div>
                             {/* Next: "Add live chat widget or contact methods showcase" */}
