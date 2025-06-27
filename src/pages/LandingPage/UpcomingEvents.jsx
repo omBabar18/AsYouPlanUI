@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography, Grid, Card, CardMedia } from '@mui/material';
 
 const TravelEvents = () => {
-  const travelImages = [
-    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=600&fit=crop", // Tropical beach
-    "https://images.unsplash.com/photo-1503917988258-f87a78e3c995?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=600&fit=crop"  // Mountain resort
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const travelCards = [
+    {
+      image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=600&fit=crop",
+      text: "What to do on your trip"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1503917988258-f87a78e3c995?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&h=600&fit=crop",
+      text: "Up to 70% off"
+    }
   ];
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Smooth scrolling animation
+    });
+  };
 
   return (
     <Box sx={{ 
       py: 8,
       px: { xs: 2, md: 4 },
       maxWidth: 1400,
-      margin: '0 auto'
+      marginTop: '40px',
+      marginBottom: '10px'
     }}>
       {/* Section Heading */}
       <Typography 
@@ -29,29 +44,70 @@ const TravelEvents = () => {
         Upcoming Events
       </Typography>
 
-      {/* Image Cards - Fixed Equal Size */}
+      {/* Image Cards */}
       <Grid container spacing={4} justifyContent="center" alignItems="stretch">
-        {travelImages.map((image, index) => (
-          <Grid item xs={12} sm={10} md={5} key={index} sx={{ display: 'flex' }}>
-            <Card sx={{ 
-              width: '100%',
-              borderRadius: 2,
-              overflow: 'hidden',
-              boxShadow: 3,
+        {travelCards.map((card, index) => (
+          <Grid 
+            key={index} 
+            sx={{ 
               display: 'flex',
-              flexDirection: 'column'
-            }}>
+              minWidth: { xs: '100%', sm: 'calc(50% - 32px)', md: 'calc(50% - 32px)' },
+              maxWidth: { xs: '100%', sm: 'calc(50% - 32px)', md: 'calc(50% - 32px)' },
+              flex: '1 1 0%'
+            }}
+          >
+            <Card 
+              sx={{ 
+                width: '100%',
+                borderRadius: 2,
+                overflow: 'hidden',
+                boxShadow: 3,
+                display: 'flex',
+                flexDirection: 'column',
+                position: 'relative',
+                '&:hover': {
+                  transform: 'translateY(-5px)',
+                  transition: 'transform 0.3s ease',
+                  cursor: 'pointer' // Changes cursor to pointer on hover
+                }
+              }}
+              onMouseEnter={() => setHoveredCard(index)}
+              onMouseLeave={() => setHoveredCard(null)}
+              onClick={scrollToTop} // Added click handler
+            >
               <CardMedia
                 component="img"
-                image={image}
+                image={card.image}
                 alt={`Travel destination ${index + 1}`}
                 sx={{ 
                   width: '100%',
-                  height: 400, // Fixed height for all cards
+                  height: 400,
                   flexGrow: 1,
                   objectFit: 'cover'
                 }}
               />
+              {/* Text overlay appears on hover for both cards */}
+              {card.text && (
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    bgcolor: 'rgba(0,0,0,0.7)',
+                    color: 'white',
+                    p: 2,
+                    textAlign: 'center',
+                    opacity: hoveredCard === index ? 1 : 0,
+                    transform: hoveredCard === index ? 'translateY(0)' : 'translateY(10px)',
+                    transition: 'opacity 0.3s ease, transform 0.3s ease'
+                  }}
+                >
+                  <Typography variant="h5" component="div" sx={{ fontWeight: 600 }}>
+                    {card.text}
+                  </Typography>
+                </Box>
+              )}
             </Card>
           </Grid>
         ))}

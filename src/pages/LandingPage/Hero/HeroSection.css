@@ -1,5 +1,10 @@
 /* HeroSection.css */
+#webscrumbs{
+  margin:0 ;
+  padding: 0;
+}
 .hero-section {
+  margin-top: 0 !important;
   height: 90vh;
   display: flex;
   flex-direction: column;
@@ -57,7 +62,7 @@
 }
 
 .active-tab {
-  background-color: #ff5a5f !important;
+  background-color: #734F96 !important;
   color: white !important;
   padding: 10px 30px !important;
   border-radius: 30px !important;
@@ -83,7 +88,7 @@
 
 /* Search Box Styles */
 .search-box {
-  background: white;
+  background: #0e0101;
   border-radius: 10px;
   padding: 20px;
   width: 100%;
@@ -121,13 +126,13 @@
 .search-field input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #eae9e9;
   border-radius: 5px;
   font-size: 1rem;
 }
 
 .search-button {
-  background-color: #ff5a5f !important;
+  background-color: #000080 !important;
   color: white !important;
   border: none;
   padding: 12px 30px !important;
