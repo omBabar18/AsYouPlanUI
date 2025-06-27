@@ -3,13 +3,16 @@ import { useState } from 'react'
 import { NavBarComponent } from './components/navbarBeforeSignup.jsx';
 import Footer from './components/Footer.jsx';
 import CustomerReview from './components/CustomerReview.jsx';
+import PaymentGatewayForm from './pages/paymentGatewayForm.jsx';
 
 function App() {
   return (
     <div>
       {/* <Auth /> */}
-      <NavBarComponent />
-      <CustomerReview/>
+      {/* <NavBarComponent /> */}
+      {/* <CustomerReview/> */}
+      
+      {<PaymentGatewayForm/>}
       <Footer/>
     </div>
   );
