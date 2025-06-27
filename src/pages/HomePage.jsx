@@ -11,7 +11,7 @@ import { WhyToChooseUsComponent } from '../components/whyToChooseUs';
 const HomePage = () => {
   return (
     <div className="home-page" style={{ position: 'relative' }}>
-    //   <Header />
+       {/* <Header /> */}
     {/* <NavBarComponent/> */}
     <HeroSection />
     <UpcomingEvents />

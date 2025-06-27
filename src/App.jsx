@@ -1,9 +1,10 @@
 //import { useState } from 'react'
-// import Auth from './components/auth.jsx';
+import Auth from './components/auth.jsx';
 import { NavBarComponent } from './components/navbarBeforeSignup.jsx';
 import HomePage from './pages/HomePage.jsx';
 import { WhyToChooseUsComponent } from './components/whyToChooseUs.jsx';
 import Footer from './components/footer.jsx';
+
 function App() {
   return (
     <div>

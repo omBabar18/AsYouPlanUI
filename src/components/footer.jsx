@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../assets/styles/Footer.module.css';
 
 // Icons
-import { SlEnvolopeLetter } from "react-icons/sl";
+import { FiMail } from "react-icons/fi";
 import PhoneIcon from '@mui/icons-material/Phone';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip';
 import GavelIcon from '@mui/icons-material/Gavel';
@@ -21,7 +21,7 @@ const Footer = () => {
       {/* Newsletter Section */}
       <div className={styles.newsletter}>
         <div className={styles.newsLeft}>
-          <h2><SlEnvolopeLetter className={styles.icon} /> Your Travel Journey Starts Here</h2>
+          <h2><FiMail className={styles.icon} /> Your Travel Journey Starts Here</h2>
           <p>Sign up and we’ll send the best deals to you</p>
         </div>
         <div className={styles.newsRight}>
