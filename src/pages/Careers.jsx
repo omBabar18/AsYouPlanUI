@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { 
   Box, 
   Typography, 
@@ -9,7 +9,6 @@ import {
   AccordionSummary, 
   AccordionDetails,
   Container,
-  useScrollTrigger,
   Fade,
   Grow,
   Slide
@@ -28,7 +27,22 @@ import {
   Business, 
   Gavel, 
   TrendingUp, 
-  Group 
+  Group,
+  // New icons
+  LocalAtm,
+  Campaign,
+  Settings,
+  SupportAgent,
+  ReceiptLong,
+  AirplaneTicket,
+  KingBed,
+  Terminal,
+  AccountBalance,
+  Groups,
+  Balance,
+  Map,
+  Analytics,
+  Person
 } from '@mui/icons-material';
 import { keyframes } from '@emotion/react';
 import { motion } from 'framer-motion';
@@ -42,20 +56,76 @@ const pulse = keyframes`
 
 const CareersPage = () => {
   const departments = [
-    { icon: <AttachMoney fontSize="large" />, name: "Sales", description: "Handle B2C, B2B, Corporate, and Holiday tour sales—domestic and international." },
-    { icon: <TrendingUp fontSize="large" />, name: "Marketing", description: "Craft brand campaigns, drive leads, manage influencer collabs & digital strategy." },
-    { icon: <Flight fontSize="large" />, name: "Operations", description: "Ensure flawless execution of itineraries, logistics, visas, and vendor coordination." },
-    { icon: <HeadsetMic fontSize="large" />, name: "Customer Care", description: "Support clients before, during, and after trips with empathy and precision." },
-    { icon: <Business fontSize="large" />, name: "Contracting & Costing", description: "Negotiate, price, and manage service contracts and profit margins." },
-    { icon: <Flight fontSize="large" />, name: "Flights & Ticketing", description: "Domestic & international GDS ticketing, reissues, and airline relations." },
-    { icon: <Hotel fontSize="large" />, name: "Hotels & OTA", description: "Hotel contracting, API integration, rate parity & dynamic pricing." },
-    { icon: <Code fontSize="large" />, name: "Technology & Product", description: "Web/app dev, UX, backend systems, OTA engine, APIs." },
-    { icon: <AttachMoney fontSize="large" />, name: "Finance & Accounts", description: "Taxation, vendor/client billing, reconciliation, and reporting." },
-    { icon: <PeopleAlt fontSize="large" />, name: "HR & Admin", description: "Build, train and manage a passionate team of travel professionals." },
-    { icon: <Gavel fontSize="large" />, name: "Legal & Compliance", description: "Safeguard travel contracts, disputes, PR/legal relations." },
-    { icon: <Public fontSize="large" />, name: "Tour Product Development", description: "Curate unique experiences, seasonal packages, and festival tours." },
-    { icon: <School fontSize="large" />, name: "Business Intelligence", description: "Analyze market data, pricing, campaigns & forecasting." },
-    { icon: <Star fontSize="large" />, name: "Influencer & Celebrity Travel", description: "Handle high-profile travel planning, media coordination, and partnerships." }
+    { 
+      icon: <LocalAtm fontSize="medium" />, 
+      name: "Sales", 
+      description: "Handle B2C, B2B, Corporate, and Holiday tour sales—domestic and international." 
+    },
+    { 
+      icon: <Campaign fontSize="medium" />, 
+      name: "Marketing", 
+      description: "Craft brand campaigns, drive leads, manage influencer collabs & digital strategy." 
+    },
+    { 
+      icon: <Settings fontSize="medium" />, 
+      name: "Operations", 
+      description: "Ensure flawless execution of itineraries, logistics, visas, and vendor coordination." 
+    },
+    { 
+      icon: <SupportAgent fontSize="medium" />, 
+      name: "Customer Care", 
+      description: "Support clients before, during, and after trips with empathy and precision." 
+    },
+    { 
+      icon: <ReceiptLong fontSize="medium" />, 
+      name: "Contracting & Costing", 
+      description: "Negotiate, price, and manage service contracts and profit margins." 
+    },
+    { 
+      icon: <AirplaneTicket fontSize="medium" />, 
+      name: "Flights & Ticketing", 
+      description: "Domestic & international GDS ticketing, reissues, and airline relations." 
+    },
+    { 
+      icon: <KingBed fontSize="medium" />, 
+      name: "Hotels & OTA", 
+      description: "Hotel contracting, API integration, rate parity & dynamic pricing." 
+    },
+    { 
+      icon: <Terminal fontSize="medium" />, 
+      name: "Technology & Product", 
+      description: "Web/app dev, UX, backend systems, OTA engine, APIs." 
+    },
+    { 
+      icon: <AccountBalance fontSize="medium" />, 
+      name: "Finance & Accounts", 
+      description: "Taxation, vendor/client billing, reconciliation, and reporting." 
+    },
+    { 
+      icon: <Groups fontSize="medium" />, 
+      name: "HR & Admin", 
+      description: "Build, train and manage a passionate team of travel professionals." 
+    },
+    { 
+      icon: <Balance fontSize="medium" />, 
+      name: "Legal & Compliance", 
+      description: "Safeguard travel contracts, disputes, PR/legal relations." 
+    },
+    { 
+      icon: <Map fontSize="medium" />, 
+      name: "Tour Product Development", 
+      description: "Curate unique experiences, seasonal packages, and festival tours." 
+    },
+    { 
+      icon: <Analytics fontSize="medium" />, 
+      name: "Business Intelligence", 
+      description: "Analyze market data, pricing, campaigns & forecasting." 
+    },
+    { 
+      icon: <Person fontSize="medium" />, 
+      name: "Influencer & Celebrity Travel", 
+      description: "Handle high-profile travel planning, media coordination, and partnerships." 
+    }
   ];
 
   const testimonials = [
@@ -82,15 +152,12 @@ const CareersPage = () => {
     "Open, inclusive & growth-driven culture"
   ];
 
-  // Scroll animation trigger
-  const trigger = useScrollTrigger();
-
   return (
     <Box sx={{ 
       backgroundColor: '#f9f9f9',
       overflowX: 'hidden'
     }}>
-      {/* Hero Section with Parallax Effect */}
+      {/* Hero Section with Team Background */}
       <Box 
         component={motion.div}
         initial={{ opacity: 0 }}
@@ -99,7 +166,7 @@ const CareersPage = () => {
         sx={{ 
           height: '100vh',
           minHeight: 600,
-          backgroundImage: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)',
+          backgroundImage: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)',
           backgroundSize: 'cover',
           backgroundAttachment: 'fixed',
           backgroundPosition: 'center',
@@ -229,7 +296,7 @@ const CareersPage = () => {
         <Grid container spacing={4} justifyContent="center">
           {benefits.map((item, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-              <Grow in={trigger} timeout={index * 300}>
+              <Grow in={true} timeout={index * 300}>
                 <Card 
                   component={motion.div}
                   whileHover={{ 
@@ -249,10 +316,6 @@ const CareersPage = () => {
                 >
                   <Box 
                     sx={{
-                      width: 80,
-                      height: 80,
-                      borderRadius: '50%',
-                      backgroundColor: 'primary.light',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -283,7 +346,7 @@ const CareersPage = () => {
           ))}
         </Grid>
 
-        <Fade in={trigger} timeout={2000}>
+        <Fade in={true} timeout={2000}>
           <Box 
             sx={{ 
               mt: 10, 
@@ -354,7 +417,7 @@ const CareersPage = () => {
             {departments.map((dept, index) => (
               <Slide 
                 direction="up" 
-                in={trigger} 
+                in={true} 
                 timeout={index * 150}
                 key={index}
               >
@@ -382,10 +445,6 @@ const CareersPage = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
                       <Box 
                         sx={{ 
-                          width: 50,
-                          height: 50,
-                          borderRadius: '50%',
-                          backgroundColor: 'primary.light',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
@@ -430,17 +489,18 @@ const CareersPage = () => {
         </Container>
       </Box>
 
-      {/* Testimonials with Parallax */}
+      {/* Testimonials with Office Background - Fixed Spacing */}
       <Box 
         sx={{ 
-          height: 400,
-          backgroundImage: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://images.unsplash.com/photo-1506929562872-bb421503ef21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)',
+          minHeight: 500,
+          backgroundImage: 'linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)',
           backgroundSize: 'cover',
-          backgroundAttachment: 'fixed',
           backgroundPosition: 'center',
           display: 'flex',
           alignItems: 'center',
-          position: 'relative'
+          position: 'relative',
+          py: 10,
+          mb: 8
         }}
       >
         <Container maxWidth="lg">
@@ -457,7 +517,7 @@ const CareersPage = () => {
           >
             Our Culture
           </Typography>
-          <Grid container spacing={4}>
+          <Grid container spacing={4} justifyContent="center">
             {testimonials.map((testimonial, index) => (
               <Grid item xs={12} md={4} key={index}>
                 <motion.div
@@ -522,7 +582,7 @@ const CareersPage = () => {
         </Container>
       </Box>
 
-      {/* Final CTA */}
+      {/* Final CTA - Fixed Positioning */}
       <Box 
         component={motion.div}
         initial={{ opacity: 0 }}
@@ -532,7 +592,9 @@ const CareersPage = () => {
         sx={{ 
           py: 12,
           px: 2,
-          backgroundColor: 'primary.main',
+          backgroundImage: 'linear-gradient(rgba(25,118,210,0.9), rgba(25,118,210,0.9)), url(https://images.unsplash.com/photo-1571260898930-8a6e8fc5a3d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
           color: 'white',
           textAlign: 'center',
           position: 'relative',

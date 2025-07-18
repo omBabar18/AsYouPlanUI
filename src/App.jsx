@@ -7,6 +7,7 @@ import Footer from './components/footer.jsx';
 //import Footer from './components/Footer.jsx';
 //import CustomerReview from './components/CustomerReview.jsx';
 import CareersPage from './pages/Careers.jsx';
+import HelpDesk from './pages/HelpDesk.jsx';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
       {/* <Footer/> */}
       {/* Add more components as needed */}
       {/* <Footer /> */}
-      <CareersPage />
+      {/* <CareersPage /> */}
+      <HelpDesk />
     </div>
   );
 }
