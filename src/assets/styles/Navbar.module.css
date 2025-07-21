@@ -1,0 +1,148 @@
+.navbarWrapper {
+  width: 100%;
+  font-family: Arial, sans-serif;
+  border-bottom: 1px solid #e0e0e0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 2px 8px rgba(44, 67, 169, 0.08);
+}
+
+.topBar {
+  height: 48px; /* reduced from 56px */
+  background-color: #2c43a9;
+  color: white;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.topBar a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.leftLinks {
+  display: flex;
+  align-items: center;
+}
+
+.rightLinks {
+  display: flex;
+  align-items: center;
+}
+
+.accountMenu {
+  margin-left: 20px;
+}
+
+.userIcon {
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.mainBar {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navLinks a {
+  margin: 0 10px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.actionItems {
+  display: flex;
+  align-items: center;
+}
+
+.search {
+  margin-right: 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.createBtn {
+  background-color: #16191f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.createBtn:hover {
+  background-color: #000;
+}
+
+.userPanel {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: #fff;
+  color: #222;
+  border: 1px solid #e0e0e0;
+  border-radius: 14px;
+  box-shadow: 0 8px 32px rgba(44, 67, 169, 0.14);
+  min-width: 240px;
+  padding: 24px 20px 20px 20px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userPanelAvatar {
+  margin-bottom: 12px;
+}
+
+.userPanelContent {
+  width: 100%;
+  text-align: center;
+}
+
+.userPanelName {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.userPanelEmail {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.userPanelSignOut {
+  display: inline-block;
+  padding: 8px 20px;
+  background: #2c43a9;
+  color: #fff;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.userPanelSignOut:hover {
+  background: #16191f;
+}
+
+
