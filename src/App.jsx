@@ -1,4 +1,3 @@
-//import { useState } from 'react'
 import Auth from './components/auth.jsx';
 import { NavBarComponent } from './components/navbarBeforeSignup.jsx';
 import HomePage from './pages/HomePage.jsx';
@@ -12,15 +11,14 @@ import HelpDesk from './pages/HelpDesk.jsx';
 function App() {
   return (
     <div>
-      {/* <Auth /> */} 
-      {/* <NavBarComponent /> */}
-      {/* <HomePage/> */}
-      {/* <WhyToChooseUsComponent /> */}
-      {/* <Footer/> */}
-      {/* Add more components as needed */}
-      {/* <Footer /> */}
+      {/* Uncomment components as needed */}
+      {/* <Auth /> */}
+      <NavBarComponent />
+      <HomePage />
+      <WhyToChooseUsComponent />
       {/* <CareersPage /> */}
       <HelpDesk />
+      <Footer />
     </div>
   );
 }
