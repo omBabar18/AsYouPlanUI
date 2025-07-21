@@ -52,7 +52,6 @@ const CustomerReview = () => {
     }, 200);
   };
 
-  
   useEffect(() => {
     const timer = setInterval(() => {
       nextReview();
@@ -63,63 +62,73 @@ const CustomerReview = () => {
   const { name, quote, image, rating, platform } = reviews[current];
 
   return (
-    <section className={styles.testimonialSection}>
-      <div className={`${styles.left} ${fade ? styles.fadeIn : styles.fadeOut}`}>
-        <svg
-          className={styles.quoteIcon}
-          viewBox="0 0 32 32"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+    <div style={{ marginTop: "88px" }} id="customer-review">
+      <section className={styles.testimonialSection}>
+        <div
+          className={`${styles.left} ${
+            fade ? styles.fadeIn : styles.fadeOut
+          }`}
         >
-          <path d="M12 4H4V20H12V4ZM28 4H20V20H28V4Z" fill="#a855f7" />
-        </svg>
+          <svg
+            className={styles.quoteIcon}
+            viewBox="0 0 32 32"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M12 4H4V20H12V4ZM28 4H20V20H28V4Z" fill="#a855f7" />
+          </svg>
 
-        <p className={styles.quoteText}>{quote}</p>
+          <p className={styles.quoteText}>{quote}</p>
 
-        <div className={styles.reviewer}>
-          <div className={styles.line} />
-          <h4>{name}</h4>
+          <div className={styles.reviewer}>
+            <div className={styles.line} />
+            <h4>{name}</h4>
+          </div>
+
+          <div className={styles.rating}>
+            {[...Array(rating)].map((_, i) => (
+              <IoStarSharp key={i} className={styles.star} />
+            ))}
+          </div>
+          <p className={styles.meta}>{platform}</p>
+
+          <div className={styles.dots}>
+            {reviews.map((_, idx) => (
+              <span
+                key={idx}
+                className={idx === current ? styles.active : ""}
+                onClick={() => {
+                  setFade(false);
+                  setTimeout(() => {
+                    setCurrent(idx);
+                    setFade(true);
+                  }, 200);
+                }}
+              />
+            ))}
+          </div>
+
+          <div className={styles.arrows}>
+            <button onClick={prevReview}>
+              <IoChevronBack />
+            </button>
+            <button onClick={nextReview}>
+              <IoChevronForward />
+            </button>
+          </div>
         </div>
 
-        <div className={styles.rating}>
-          {[...Array(rating)].map((_, i) => (
-            <IoStarSharp key={i} className={styles.star} />
-          ))}
+        <div
+          className={`${styles.right} ${
+            fade ? styles.fadeIn : styles.fadeOut
+          }`}
+        >
+          <div className={styles.blob}>
+            <img src={image} alt={name} />
+          </div>
         </div>
-        <p className={styles.meta}>{platform}</p>
-
-        <div className={styles.dots}>
-          {reviews.map((_, idx) => (
-            <span
-              key={idx}
-              className={idx === current ? styles.active : ""}
-              onClick={() => {
-                setFade(false);
-                setTimeout(() => {
-                  setCurrent(idx);
-                  setFade(true);
-                }, 200);
-              }}
-            />
-          ))}
-        </div>
-
-        <div className={styles.arrows}>
-          <button onClick={prevReview}>
-            <IoChevronBack />
-          </button>
-          <button onClick={nextReview}>
-            <IoChevronForward />
-          </button>
-        </div>
-      </div>
-
-      <div className={`${styles.right} ${fade ? styles.fadeIn : styles.fadeOut}`}>
-        <div className={styles.blob}>
-          <img src={image} alt={name} />
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 
