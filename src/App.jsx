@@ -5,15 +5,16 @@ import { BrowserRouter } from "react-router-dom";
 // import Footer from './components/Footer.jsx';
 import Navbar from "./components/Navbar.jsx"
 import Footer_F from './components/Footer_F.jsx';
-
+import AddNewTour from './pages/AddTour/AddTour.jsx';
 function App() {
   return (
     <BrowserRouter>
       <div>
         {/* <Auth /> */}
         {/* <NavBarComponent /> */}
-        <Footer_F/>
-        <Navbar/>
+        {/* <Footer_F/> */}
+        {/* <Navbar/> */}
+        <AddNewTour />
       </div>
     </BrowserRouter>
   );
